@@ -5,6 +5,8 @@ import swaggerFile from "./swagger.json"
 import cors from "cors";
 import { productRoutes } from "./products.routes";
 
+import "./database";
+
 const app = express();
 
 app.use(express.json());
