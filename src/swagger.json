@@ -1,0 +1,15 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Store of Products Documentation",
+    "description": "This is an API for EComerce of Products",
+    "version": "1.0.0",
+    "contact": {
+      "email": "programmerx123@gmail.com"
+    }
+  },
+  "paths": {
+    "/products": {
+    }
+  }
+}

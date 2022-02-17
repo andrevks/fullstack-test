@@ -28,28 +28,28 @@ productRoutes.get('/products', (request, response) => {
 })
 
 
-productRoutes.get('/products/:id', (request, response) => {
-  const { name, category, price, created_at } =  request.body;
+// productRoutes.get('/products/:id', (request, response) => {
+//   const { name, category, price, created_at } =  request.body;
 
 
-  return response.status(200).json({})
-})
+//   return response.status(200).json({})
+// })
 
 
-productRoutes.put('/products/:id', (request, response) => {
-  const { name, category, price, created_at } =  request.body;
+// productRoutes.put('/products/:id', (request, response) => {
+//   const { name, category, price, created_at } =  request.body;
 
 
-  return response.status(200).json({})
-})
+//   return response.status(200).json({})
+// })
 
 
 
-productRoutes.delete('/products/:id', (request, response) => {
-  const { name, category, price, created_at } =  request.body;
+// productRoutes.delete('/products/:id', (request, response) => {
+//   const { name, category, price, created_at } =  request.body;
 
 
-  return response.status(200).json({})
-})
+//   return response.status(200).json({})
+// })
 
 export { productRoutes }
