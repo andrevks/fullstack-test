@@ -1,48 +1,46 @@
-import { Product } from "./model/Product";
+import { getRepository, Repository } from "typeorm";
+import { Product } from "./entities/Product";
 
 interface ICreateProductDTO {
   name: string;
   category: string;
   price: number;
-} 
+}
 
-class ProductRepository {
-  private product: Product[];
+interface IProductRepository {
+  findByName(name: string): Promise<Product>;
+  list(): Promise<Product[]>;
+  create({ name, category, price }: ICreateProductDTO): Promise<void>;
+}
+
+class ProductRepository implements IProductRepository {
+  private repository: Repository<Product>;
 
   constructor() {
-    this.product = [ {
-        "name": "Macbook",
-        "category": "computer",
-        "price": 7000,
-        "created_at": new Date("2022-02-17T16:17:14.067Z")
-    }];
+    this.repository = getRepository(Product);
   }
 
-
-  create({ name, category, price }: ICreateProductDTO ): void {
-    const product = new Product();
-    
-    Object.assign(product, {
+  async create({ name, category, price }: ICreateProductDTO): Promise<void> {
+    const product = this.repository.create({
       name,
       category,
       price,
-      created_at: new Date()
     });
 
-    this.product.push(product);
-
+    await this.repository.save(product);
   }
 
-  list(): Product[] {
-    return this.product;
+  async list(): Promise<Product[]> {
+    // const product = await this.repository.find();
+    // return product;
+    return;
   }
 
-  findByName(name: string): Product {
-    const product = this.product.find((product) => product.name === name);
+  async findByName(name: string): Promise<Product> {
+    const product = await this.repository.findOne({ name });
+    console.log(`Product found: ${product}`);
     return product;
   }
-
 }
 
-
-export { ProductRepository }
+export { ProductRepository };
