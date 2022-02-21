@@ -23,7 +23,7 @@ export class CreateProducts1645131033273 implements MigrationInterface {
           },
           {
             name: "price",
-            type: "decimal",
+            type: "numeric",
           },
           {
             name: "created_at",

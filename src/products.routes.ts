@@ -9,7 +9,7 @@ productRoutes.post("/", async (request, response) => {
 
   try {
     const productRepository = new ProductRepository();
-    const productAlreadyExists = productRepository.findByName(name);
+    const productAlreadyExists = await productRepository.findByName(name);
 
     if (productAlreadyExists) {
       return response.status(400).json({ error: "Product Already exists!" });
@@ -26,16 +26,22 @@ productRoutes.post("/", async (request, response) => {
 productRoutes.get("/", async (request, response) => {
   const productRepository = new ProductRepository();
   const all = await productRepository.read();
-  console.log(all);
-
   return response.json(all);
 });
 
-// productRoutes.get('/products/:id', (request, response) => {
-//   const { name, category, price, created_at } =  request.body;
+productRoutes.get("/:id", async (request, response) => {
+  const { id } = request.params;
+  const productRepository = new ProductRepository();
+  const product = await productRepository.findById(+id);
 
-//   return response.status(200).json({})
-// })
+  const isIdOnDatabase = product ? product : null;
+
+  if (!isIdOnDatabase) {
+    return response.status(404).json({ error: "Product ID doesn't exist" });
+  }
+
+  return response.status(200).json(product);
+});
 
 // productRoutes.put('/products/:id', (request, response) => {
 //   const { name, category, price, created_at } =  request.body;
