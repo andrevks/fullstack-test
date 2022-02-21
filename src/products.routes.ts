@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { Product } from "./entities/Product";
 import { ProductRepository } from "./ProductRepository";
 
 const productRoutes = Router();
@@ -8,25 +9,27 @@ productRoutes.post("/", async (request, response) => {
 
   try {
     const productRepository = new ProductRepository();
-    // const productAlreadyExists = productRepository.findByName(name);
+    const productAlreadyExists = productRepository.findByName(name);
 
-    // if (productAlreadyExists) {
-    //   return response.status(400).json({ error: "Product Already exists!" });
-    // }
+    if (productAlreadyExists) {
+      return response.status(400).json({ error: "Product Already exists!" });
+    }
 
-    const product = productRepository.create({ name, category, price });
+    productRepository.create({ name, category, price });
 
-    return response.status(201).send(product);
+    return response.status(201).send();
   } catch (error) {
     console.log(`Error: ${error}`);
   }
 });
 
-// productRoutes.get("/", (request, response) => {
-//   const all = productRepository.list();
+productRoutes.get("/", async (request, response) => {
+  const productRepository = new ProductRepository();
+  const all = await productRepository.read();
+  console.log(all);
 
-//   return response.json(all);
-// });
+  return response.json(all);
+});
 
 // productRoutes.get('/products/:id', (request, response) => {
 //   const { name, category, price, created_at } =  request.body;

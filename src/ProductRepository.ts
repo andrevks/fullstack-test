@@ -9,7 +9,7 @@ interface ICreateProductDTO {
 
 interface IProductRepository {
   findByName(name: string): Promise<Product>;
-  list(): Promise<Product[]>;
+  read(): Promise<Product[]>;
   create({ name, category, price }: ICreateProductDTO): Promise<void>;
 }
 
@@ -30,10 +30,11 @@ class ProductRepository implements IProductRepository {
     await this.repository.save(product);
   }
 
-  async list(): Promise<Product[]> {
-    // const product = await this.repository.find();
-    // return product;
-    return;
+  async read(): Promise<Product[]> {
+    const products = await this.repository.find();
+
+    // console.log(products);
+    return products;
   }
 
   async findByName(name: string): Promise<Product> {
