@@ -43,11 +43,30 @@ productRoutes.get("/:id", async (request, response) => {
   return response.status(200).json(product);
 });
 
-// productRoutes.put('/products/:id', (request, response) => {
-//   const { name, category, price, created_at } =  request.body;
+productRoutes.put("/:id", async (request, response) => {
+  const { name, category, price } = request.body;
+  const { id } = request.params;
 
-//   return response.status(200).json({})
-// })
+  const productRepository = new ProductRepository();
+  const product = await productRepository.findById(+id);
+
+  const isIdOnDatabase = product ? product : null;
+
+  if (!isIdOnDatabase) {
+    return response.status(404).json({ error: "Product ID doesn't exist" });
+  }
+
+  const updatedProduct = {
+    id: +id,
+    name: name ? name : product.name,
+    category: category ? category : product.category,
+    price: price ? price : product.price,
+  };
+
+  productRepository.update(updatedProduct);
+
+  return response.status(200).send();
+});
 
 // productRoutes.delete('/products/:id', (request, response) => {
 //   const { name, category, price, created_at } =  request.body;

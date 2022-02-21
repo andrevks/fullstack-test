@@ -7,6 +7,13 @@ interface ICreateProductDTO {
   price: number;
 }
 
+interface IUpdateProductDTO {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+}
+
 interface IProductRepository {
   findByName(name: string): Promise<Product>;
   read(): Promise<Product[]>;
@@ -22,6 +29,22 @@ class ProductRepository implements IProductRepository {
 
   async create({ name, category, price }: ICreateProductDTO): Promise<void> {
     const product = this.repository.create({
+      name,
+      category,
+      price,
+    });
+
+    await this.repository.save(product);
+  }
+
+  async update({
+    id,
+    name,
+    category,
+    price,
+  }: IUpdateProductDTO): Promise<void> {
+    const product = this.repository.create({
+      id,
       name,
       category,
       price,
