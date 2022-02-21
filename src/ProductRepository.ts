@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { DeleteResult, getRepository, Repository } from "typeorm";
 import { Product } from "./entities/Product";
 
 interface ICreateProductDTO {
@@ -51,6 +51,11 @@ class ProductRepository implements IProductRepository {
     });
 
     await this.repository.save(product);
+  }
+
+  async delete(id: number): Promise<DeleteResult> {
+    const product = await this.repository.delete({ id });
+    return product;
   }
 
   async read(): Promise<Product[]> {
