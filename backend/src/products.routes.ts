@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { Product } from "./entities/Product";
 import { ProductRepository } from "./ProductRepository";
 
 const productRoutes = Router();
@@ -69,7 +68,6 @@ productRoutes.put("/:id", async (request, response) => {
 });
 
 productRoutes.delete("/:id", async (request, response) => {
-  const { name, category, price } = request.body;
   const { id } = request.params;
 
   const productRepository = new ProductRepository();
