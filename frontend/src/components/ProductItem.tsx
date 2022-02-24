@@ -1,6 +1,5 @@
-
-
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface ProductTableProps {
   id: number;
@@ -22,10 +21,15 @@ export function ProductItem({ id, name, category, price, created_at, deleteProdu
                 <th>
                   <p> {data} </p>
                 </th>
-
                 <th>
                   <span onClick={() => deleteProduct(id)}>x </span>
-                  <span>edit</span>
+                <button> 
+                  <Link to={{
+                    pathname: '/update-product',
+                  }} state={{id, name, category, price}} >
+                         Editar
+                   </Link> 
+               </button>
                 </th>
             </tr>
   )
