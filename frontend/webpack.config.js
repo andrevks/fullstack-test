@@ -7,17 +7,31 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
   mode: isDevelopment? 'development': 'production',
   devtool: isDevelopment? 'eval-source-map': 'source-map',
-  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  entry: path.resolve(__dirname, 'src', 'index.tsx'),
   output: { 
     path: path.resolve(__dirname, 'dist'), 
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['.js','.jsx'],
+    extensions: ['.js','.jsx','.ts','.tsx'],
   },
   devServer: {
+    port: 3000,
+    historyApiFallback: true,
     static: path.resolve(__dirname, 'public'),
     hot: true,
+    proxy: {
+      '/api': {
+        changeOrigin: true,
+        cookieDomainRewrite: 'localhost',
+        target: 'http://localhost:3333',
+        onProxyReq: (proxyReq) => {
+          if (proxyReq.getHeader('origin')) {
+            proxyReq.setHeader('origin', 'http://localhost:3333')
+          }
+        }
+      }
+    }
   },
   plugins: [
     isDevelopment && new ReactRefreshWebpackPlugin(),
@@ -30,7 +44,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$|jsx/,
+        test: /\.js$|(j|t)sx/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
