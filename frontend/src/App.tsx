@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ProductList } from './components/ProductList';
-import './styles/global.scss';
+import './styles/index.css';
 import { ProductCreate } from './components/ProductCreate';
 import { ProductUpdate } from './components/ProductUpdate';
 

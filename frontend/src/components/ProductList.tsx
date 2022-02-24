@@ -33,7 +33,7 @@ export function ProductList() {
 
 
     return (
-        <div>
+        <div className='bg-blue-500'>
             <div>
                 <h1>Produtos</h1>
                 <button> 
@@ -43,7 +43,7 @@ export function ProductList() {
                    </Link> 
                </button>
             </div>
-            <table>
+            <table >
                 <tr>
                     <th>Nome</th>
                     <th>Categoria</th>

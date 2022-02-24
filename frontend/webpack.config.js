@@ -2,6 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
@@ -34,6 +36,9 @@ module.exports = {
     }
   },
   plugins: [
+    new MiniCssExtractPlugin({
+        filename:"index.css",
+    }),
     isDevelopment && new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin(
       {
@@ -56,9 +61,9 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.css$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       }
     ]
   }
