@@ -7,25 +7,26 @@ interface ProductTableProps {
   name: string;
   category: string;
   price: number;
-  create_at: string;
+  created_at: string;
   deleteProduct(id: number): void;
 }
 
-export function ProductItem({ id, name, category, price, create_at, deleteProduct }:ProductTableProps) {
-
+export function ProductItem({ id, name, category, price, created_at, deleteProduct }:ProductTableProps) {
+  const timestamp = new Date(created_at)
+  const data = `${timestamp.getDate()}/${timestamp.getMonth()}/${timestamp.getFullYear()}`
   return (
-            <>
+            <tr>
                 <th><p>{name}</p></th>
-                <th><p>{category}</p>)</th>
+                <th><p>{category}</p></th>
                 <th><p>{price}</p></th>
                 <th>
-                  <p> {(new Date(create_at).getDate() + '/')}</p>
+                  <p> {data} </p>
                 </th>
 
                 <th>
-                  <span onClick={() => deleteProduct(id)}>x</span>
+                  <span onClick={() => deleteProduct(id)}>x </span>
                   <span>edit</span>
                 </th>
-            </>
+            </tr>
   )
 }

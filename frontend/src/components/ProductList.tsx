@@ -9,7 +9,7 @@ interface Product {
   name: string;
   category: string;
   price: number;
-  create_at: string;
+  created_at: string;
 }
 
 export function ProductList() {
@@ -52,9 +52,7 @@ export function ProductList() {
                     <th>Data de criação</th>
                     <th>Ações</th>
                 </tr>
-                {/* <tr>
-                    {products.map(product => <ProductItem id={product.id} name={product.name} category={product.category} price={product.price} create_at={product.create_at} deleteProduct={deleteProduct}/>)}
-                </tr> */}
+                    {products.map(product => <ProductItem id={product.id} name={product.name} category={product.category} price={product.price} created_at={product.created_at} deleteProduct={deleteProduct}/>)}
              
             </table>
         </div>
