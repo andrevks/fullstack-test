@@ -124,6 +124,9 @@ O Product Manager do projeto deixou uma sugestão abaixo.
 Antes de completar a ação de remover produto, devemos perguntar ao usuário se ele realmente quer realizar a ação. Para evitar a remoção de produtos de maneira indesejada.
 Após remover com êxito, notificar o usuário com um alerta de sucesso.
 
+https://dev.to/elfatouakikhalid/your-first-tailwindcss-setup-with-webpack-1gfm
+https://dev.to/ynwd/how-to-integrate-tailwind-react-and-webpack-2gdf
+https://levelup.gitconnected.com/setup-tailwind-css-with-webpack-3458be3eb547
 ### 🎯 Extras
 
 - **Diferencial 1 - Foco em Front-End** utilizar Unit Test no front-end para a opção de `Remover produto`.

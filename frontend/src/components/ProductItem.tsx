@@ -14,22 +14,23 @@ export function ProductItem({ id, name, category, price, created_at, deleteProdu
   const timestamp = new Date(created_at)
   const data = `${timestamp.getDate()}/${timestamp.getMonth()}/${timestamp.getFullYear()}`
   return (
-            <tr>
-                <th><p>{name}</p></th>
-                <th><p>{category}</p></th>
-                <th><p>{price}</p></th>
-                <th>
+    <tr className="bg-darkBlue text-white p-10 w-full max-w-screen-lg ">
+                <th className="px-6"><p>{name}</p></th>
+                <th className="px-6"><p>{category}</p></th>
+                <th className="px-6"><p>{price}</p></th>
+                <th className="px-6">
                   <p> {data} </p>
                 </th>
-                <th>
+                <th className="px-6">
+                  <span> 
+                    <Link to={{
+                      pathname: '/update-product',
+                    }} state={{id, name, category, price}} >
+                          Editar
+                    </Link> 
+                  </span>
+                  <br></br>
                   <span onClick={() => deleteProduct(id)}>x </span>
-                <button> 
-                  <Link to={{
-                    pathname: '/update-product',
-                  }} state={{id, name, category, price}} >
-                         Editar
-                   </Link> 
-               </button>
                 </th>
             </tr>
   )
