@@ -34,30 +34,38 @@ export function ProductList() {
 
     return (
         <div className='flex items-center flex-col bg-darkBlue h-screen '>
-                <div className='flex justify-center items-center bg-white w-full rounded-sm h-[48px] mb-32'>
+                <div className='flex justify-center items-center bg-white w-full  rounded-sm h-[48px] mb-32'>
                     <p>[LOGO] INVENTORY</p>
                 </div>
-                <div className="flex justify-around text-white">
-                    <h1>Produtos</h1>
-                    <button> 
-                    <Link to={{
+                <div className="w-full flex justify-between items-center max-w-screen-lg text-white px-6 py-6">
+                    <p className="text-4xl">Produtos</p>
+                    <Link className="bg-blue p-2 rounded-2xl"
+                        to={{
                         pathname:'/create-product'}}>
-                        Adicionar Produto
+                        Adicionar
                     </Link> 
-                    </button>
                 </div>
-            <div className='bg-grayLight h-[28rem] rounded-xl p-6 w-full max-w-screen-lg '>
-                <table className="w-full">
-                    <tr className="text-gray">
-                        <th className="px-6 py-4">Nome</th>
-                        <th className="px-6 py-4">Categoria</th>
-                        <th className="px-6 py-4">Preço</th>
-                        <th className="px-6 py-4">Data de criação</th>
-                        <th className="px-6 py-4">Ações</th>
-                    </tr>
-                    {products.map(product => <ProductItem id={product.id} name={product.name} category={product.category} price={product.price} created_at={product.created_at} deleteProduct={deleteProduct} />)}
+            
+            <div className='flex flex-col bg-grayLight min-h-[28rem] rounded-3xl p-6 w-full max-w-screen-lg '>
+                    <div className="flex text-gray w-full mb-10">
+                        <p className="ml-2 flex-1">Nome</p>
+                        <p className="flex-1">Categoria</p>
+                        <p className="flex-1">Preço</p>
+                        <p className="flex-1">Data de criação</p>
+                        <p className="flex-1">Ações</p>
+                    </div>
+
+                    {products.map((product, index) => <ProductItem id={product.id} name={product.name} category={product.category} price={product.price} created_at={product.created_at} deleteProduct={deleteProduct} index={index}/>)}
                 
-                </table>
+                    <div className="flex justify-around">
+                        <button>Voltar</button>
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>4</button>
+                        <button>Próximo</button>
+                    </div>
+                
             </div>
         </div>
     )

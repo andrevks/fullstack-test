@@ -8,30 +8,31 @@ interface ProductTableProps {
   price: number;
   created_at: string;
   deleteProduct(id: number): void;
+  index: number;
 }
 
-export function ProductItem({ id, name, category, price, created_at, deleteProduct }:ProductTableProps) {
+export function ProductItem({ id, name, category, price, created_at, deleteProduct, index }:ProductTableProps) {
   const timestamp = new Date(created_at)
   const data = `${timestamp.getDate()}/${timestamp.getMonth()}/${timestamp.getFullYear()}`
+  const bgColor = index % 2 === 0 ? 'bg-darkBlue':'bg-[#58616C]';
+
   return (
-    <tr className="bg-darkBlue text-white p-10 w-full max-w-screen-lg ">
-                <th className="px-6"><p>{name}</p></th>
-                <th className="px-6"><p>{category}</p></th>
-                <th className="px-6"><p>{price}</p></th>
-                <th className="px-6">
-                  <p> {data} </p>
-                </th>
-                <th className="px-6">
+    <div className={`flex ${bgColor} text-white px-4 py-2 mb-4 w-full max-w-screen-lg rounded-2xl `}>
+                <p className="flex-1">{name}</p>
+                <p className="flex-1">{category}</p>
+                <p className="flex-1">R$ {price}</p>
+                <p className="flex-1">{data}</p>
+                <div className="flex-1">
                   <span> 
                     <Link to={{
                       pathname: '/update-product',
                     }} state={{id, name, category, price}} >
-                          Editar
+                          editar
                     </Link> 
                   </span>
-                  <br></br>
-                  <span onClick={() => deleteProduct(id)}>x </span>
-                </th>
-            </tr>
+                  <button onClick={() => deleteProduct(id)}>x </button>
+                </div>
+    </div>
+
   )
 }
