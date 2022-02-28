@@ -8,6 +8,7 @@ interface ICreateProduct {
   name: string;
   category: string;
   price: number;
+  // fecthProducts()?: any;
 }
 
 export function ProductCreate() {
@@ -36,7 +37,6 @@ export function ProductCreate() {
         }
 
        createNewProduct(formData)
-
       
        navigate('/', {replace: true })
     }
