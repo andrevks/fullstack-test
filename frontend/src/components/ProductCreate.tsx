@@ -42,7 +42,7 @@ export function ProductCreate() {
     }
 
 
-    return  <ProductForm handleSubmit={handleSubmit} submitBtn="Criar" formTitle="Criar Produto"/>
+    return  <ProductForm handleSubmit={handleSubmit} submitBtn="Cadastrar" formTitle="Adicionar Produto"/>
     
 }
 

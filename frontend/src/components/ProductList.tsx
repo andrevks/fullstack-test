@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProductItem } from './ProductItem';
+import { Navbar } from './Navbar';
 import ProductService from "../services/ProductService";
 import { AxiosResponse } from 'axios';
 // Images
-import ReactLogo from '../assets/ReactLogo.svg'
 import { IconContext } from "react-icons";
 import { GrNext, GrPrevious  } from "react-icons/gr";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -83,11 +83,7 @@ export function ProductList() {
 
     return (
         <div className='flex items-center flex-col bg-darkBlue min-h-screen '>
-            
-                <div className='flex justify-center items-center bg-white w-full rounded-sm min-h-[3rem] mb-20'>
-                    <img src={ReactLogo} alt="React Logo" width="40rem" className='mr-1'/>
-                    <p className="font-semibold">INVENTORY</p>
-            </div>
+            <Navbar/>
             <div className="flex flex-col w-full items-center pb-10">
 
                 <div className="w-full flex justify-between items-center max-w-screen-lg text-white px-6 py-6 ">
