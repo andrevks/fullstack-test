@@ -9,6 +9,7 @@ import { IconContext } from "react-icons";
 import { GrNext, GrPrevious  } from "react-icons/gr";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import Popup from './Popup';
 
 
 interface IProduct {
@@ -26,12 +27,23 @@ export function ProductList() {
     const [products, setProducts] = useState<IProduct[]>([])
     const [productsPagination, setProductsPagination] = useState<IProductNestedArray>([])
     const [productsPageNumber, setProductsPageNumber] = useState(0)
+    const [popup, setPopup] = useState({show: false, id: null})
 
+    
 
-    async function deleteProduct(productId:number) {
-        return ProductService.remove(productId);
+    async function handleDeleteProduct() {
+        if (popup.show && popup.id) {
+            const newProducts = products.filter(product => product.id !== popup.id)
+            setProducts(newProducts);
+            setPopup({
+                show: false,
+                id: null
+            });
+            return ProductService.remove(popup.id? popup.id: 0);
+        }
+        
     }
-
+    
     function fecthProducts(): Promise<AxiosResponse<any,any>> {
         return ProductService.getAll()
     }
@@ -44,7 +56,6 @@ export function ProductList() {
 
     useEffect((): void => {
         generateProductsPagination(products)
-
     }, [products]);
 
 
@@ -57,8 +68,9 @@ export function ProductList() {
                 category={product.category}
                 price={product.price}
                 created_at={product.created_at}
-                deleteProduct={deleteProduct}
+                handleDeleteProduct={handleDeleteProduct}
                 index={index}
+                setPopup={setPopup}
             />
         )
     }
@@ -92,11 +104,12 @@ export function ProductList() {
                         to={{
                         pathname:'/create-product'}}>
                         <div className="flex items-center gap-1">
-                            {/* <AiOutlinePlusCircle/> */}
                             Adicionar
                         </div>
                     </Link> 
                 </div>
+
+            
             
                 <div className='relative flex flex-col bg-grayLight min-h-[30rem] rounded-3xl p-6 w-full max-w-screen-lg'>
                         <div className="flex text-gray w-full mb-10">
@@ -163,7 +176,8 @@ export function ProductList() {
                         </div>
                     
                 </div>
-        
+
+                {popup.show && <Popup handleDeleteProduct={handleDeleteProduct} setPopup={setPopup}/>}
             </div>
         </div>
     )

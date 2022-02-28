@@ -8,7 +8,6 @@ interface ICreateProduct {
   name: string;
   category: string;
   price: number;
-  // fecthProducts()?: any;
 }
 
 export function ProductCreate() {
@@ -21,7 +20,7 @@ export function ProductCreate() {
         price: +(product.price)
       } 
 
-        return ProductService.create(product)
+        return ProductService.create(newProduct)
     } 
 
     function handleSubmit(e: any): void{

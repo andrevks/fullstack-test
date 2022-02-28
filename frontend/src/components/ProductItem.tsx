@@ -10,11 +10,12 @@ interface ProductTableProps {
   category: string;
   price: number;
   created_at: string;
-  deleteProduct(id: number): void;
   index: number;
+  handleDeleteProduct(id: number): void;
+  setPopup({ }): any;
 }
 
-export function ProductItem({ id, name, category, price, created_at, deleteProduct, index }:ProductTableProps) {
+export function ProductItem({ id, name, category, price, created_at, handleDeleteProduct, index, setPopup }:ProductTableProps) {
   const timestamp = new Date(created_at)
   const data = `${timestamp.getDate()}/${timestamp.getMonth()}/${timestamp.getFullYear()}`
   const bgColor = index % 2 === 0 ? 'bg-darkBlue':'bg-[#58616C]';
@@ -36,7 +37,7 @@ export function ProductItem({ id, name, category, price, created_at, deleteProdu
                         </IconContext.Provider>
                       </Link> 
                     </span>
-                    <button onClick={() => deleteProduct(id)}>
+              <button onClick={() => setPopup({ show: true, id: id})}>
                         <IconContext.Provider value={{color:"#D62A2A"}}>
                           <FaTrashAlt/>
                         </IconContext.Provider>
