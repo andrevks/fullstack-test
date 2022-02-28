@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import { ProductItem } from './ProductItem';
 import ProductService from "../services/ProductService";
 import { AxiosResponse } from 'axios';
+// Images
+import ReactLogo from '../assets/ReactLogo.svg'
+import { IconContext } from "react-icons";
+import { GrNext, GrPrevious  } from "react-icons/gr";
+import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+
+
 interface IProduct {
   id: number;
   name: string;
@@ -74,63 +82,92 @@ export function ProductList() {
     
 
     return (
-        <div className='flex items-center flex-col bg-darkBlue h-screen '>
-                <div className='flex justify-center items-center bg-white w-full rounded-sm h-[48px] mb-32'>
-                    <p>[LOGO] INVENTORY</p>
-                </div>
-                <div className="w-full flex justify-between items-center max-w-screen-lg text-white px-6 py-6">
+        <div className='flex items-center flex-col bg-darkBlue min-h-screen '>
+            
+                <div className='flex justify-center items-center bg-white w-full rounded-sm min-h-[3rem] mb-20'>
+                    <img src={ReactLogo} alt="React Logo" width="40rem" className='mr-1'/>
+                    <p className="font-semibold">INVENTORY</p>
+            </div>
+            <div className="flex flex-col w-full items-center pb-10">
+
+                <div className="w-full flex justify-between items-center max-w-screen-lg text-white px-6 py-6 ">
                     <p className="text-4xl">Produtos</p>
                     <Link className="bg-blue p-2 rounded-2xl"
                         to={{
                         pathname:'/create-product'}}>
-                        Adicionar
+                        <div className="flex items-center gap-1">
+                            {/* <AiOutlinePlusCircle/> */}
+                            Adicionar
+                        </div>
                     </Link> 
                 </div>
             
-            <div className='flex flex-col bg-grayLight min-h-[rem] rounded-3xl p-6 w-full max-w-screen-lg '>
-                    <div className="flex text-gray w-full mb-10">
-                        <p className="ml-2 flex-1">Nome</p>
-                        <p className="flex-1">Categoria</p>
-                        <p className="flex-1">Preço</p>
-                        <p className="flex-1">Data de criação</p>
-                        <p className="flex-1">Ações</p>
-                    </div>
+                <div className='relative flex flex-col bg-grayLight min-h-[30rem] rounded-3xl p-6 w-full max-w-screen-lg'>
+                        <div className="flex text-gray w-full mb-10">
+                            <p className="ml-2 flex-1">Nome</p>
+                            <p className="flex-1">Categoria</p>
+                            <p className="flex-1">Preço</p>
+                            <p className="flex-1">Data de criação</p>
+                            <p className="flex-1">Ações</p>
+                        </div>
 
-
-                    {productsPagination.length !== 0 &&
-                        generateProductsList(productsPagination[productsPageNumber])
-                    }
-
-                
-                    <div className="flex justify-around">
-                        <button
-                            onClick={() => 
-                                (productsPageNumber > 0) && setProductsPageNumber(productsPageNumber - 1)
-                            }
-                            >
-                                Voltar </button>
-
-                            <div>
-                            {
-                                productsPagination.map((_, page)=> {
-                                    const isPageNumberEqual = page === productsPageNumber
-                                    if (page < 4) {
-                                        return <button className={` ${isPageNumberEqual?  'bg-yellow': 'bg-gray'} px-2.5 py-1 rounded-lg text-white m-2`}
-                                            key={page} onClick={() => setProductsPageNumber(page)}>{page + 1}</button>
-                                    }
-                                } 
-                                )  
-                            }
-                            </div>
-                        <button
-                            onClick={() => 
-                                (productsPageNumber < productsPagination.length-1) &&
-                                        setProductsPageNumber(productsPageNumber + 1)
-                                }
+                        <div className="pb-10">
                         
-                        >Próximo</button>
-                    </div>
-                
+                            {productsPagination.length !== 0 &&
+                                generateProductsList(productsPagination[productsPageNumber])
+                            }
+                        
+                        </div>            
+
+                    
+                        <div className="flex justify-between absolute bottom-0 w-11/12 ">
+                            <button
+                                onClick={() => 
+                                    (productsPageNumber > 0) && setProductsPageNumber(productsPageNumber - 1)
+                                }
+                                className="ml-4"
+                        >
+                            <div className="flex items-center">
+                                <GrPrevious /> <p className={`
+                                    ${productsPageNumber > 0? "font-semibold":"font-light"}
+                            
+                            `} >Anterior</p>
+                            </div>
+                                </button>
+
+                                <div>
+                                {
+                                    productsPagination.map(( _, page)=> {
+                                        const isPageNumberEqual = page === productsPageNumber
+                                        if (page < 6) {
+                                            return <button className={` ${isPageNumberEqual?  'bg-yellow': 'bg-gray'} px-2.5 py-1 rounded-lg text-white m-2`}
+                                                key={page} onClick={() => setProductsPageNumber(page)}>{page + 1}</button>
+                                        }
+                                    } 
+                                    )  
+                                }
+                                </div>
+                            <button
+                                onClick={() => 
+                                    (productsPageNumber < productsPagination.length-1) &&
+                                            setProductsPageNumber(productsPageNumber + 1)
+                                    }
+                                className="mr-4"
+                            >
+                                <div className="flex items-center">
+                                <p className=
+                                {`
+                                ${(productsPageNumber < productsPagination.length - 1) ?
+                                    "font-semibold": "font-light"
+                                    }`}>Próximo</p>
+                                    <GrNext />
+                                    
+                                </div>
+                            </button>
+                        </div>
+                    
+                </div>
+        
             </div>
         </div>
     )

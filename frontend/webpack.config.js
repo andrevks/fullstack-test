@@ -52,7 +52,7 @@ module.exports = {
         test: /\.js$|(j|t)sx/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+        loader: 'babel-loader',
           options: {
             plugins: [
               isDevelopment && require.resolve('react-refresh/babel')
@@ -64,7 +64,18 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [ MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
-      }
+      },
+       {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
+      },
     ]
   }
 }
