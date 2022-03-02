@@ -14,6 +14,12 @@ userRoutes.post("/", async (request, response) => {
   try {
     const userRepository = new UserRepository();
 
+    const userAlreadyExists = await userRepository.findByEmail(email);
+
+    if (userAlreadyExists) {
+      return response.status(400).json({ error: "User Already exists!" });
+    }
+
     const passwordHash = await hash(password, 8);
 
     userRepository.create({ name, email, password: passwordHash });
