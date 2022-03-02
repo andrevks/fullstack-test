@@ -1,5 +1,5 @@
 import { DeleteResult, getRepository, Repository } from "typeorm";
-import { Product } from "./entities/Product";
+import { Product } from "../entities/Product";
 
 interface ICreateProductDTO {
   name: string;

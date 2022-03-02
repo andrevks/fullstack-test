@@ -5,7 +5,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerFile from "./swagger.json";
 import cors from "cors";
 
-import { productRoutes } from "./products.routes";
+import { router } from "./routes";
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
   res.send(`<h1>API Fullstack Job Test - DomPixel running</h1>`);
 });
 
-app.use("/products", productRoutes);
+app.use(router);
 
 const PORT = 3333;
 app.listen(PORT, () => console.log(`Server is running on port ${3333}`));

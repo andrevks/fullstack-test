@@ -5,8 +5,8 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-@Entity("product")
-class Product {
+@Entity("user")
+class User {
   @PrimaryGeneratedColumn()
   id?: number;
 
@@ -14,13 +14,13 @@ class Product {
   name: string;
 
   @Column()
-  category: string;
+  email: string;
 
   @Column()
-  price: number;
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
 }
 
-export { Product };
+export { User };
