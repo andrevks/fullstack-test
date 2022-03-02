@@ -1,5 +1,6 @@
 import { Repository, getRepository } from "typeorm";
 import { User } from "../entities/User";
+
 interface ICreateUserDTO {
   name: string;
   email: string;

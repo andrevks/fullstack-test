@@ -27,8 +27,6 @@ services:
       - database
     depends_on:
       - database
-    volumes:
-      - /usr/app/node_modules/bcrypt
 
 volumes:
   pgdata:

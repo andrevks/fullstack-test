@@ -1,8 +1,12 @@
 import { Router } from "express";
 import { UserRepository } from "../repository/UserRepository";
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 
 const userRoutes = Router();
+
+userRoutes.get("/", (request, response) =>
+  response.send(`<h1>FUNFANDO HUEHUE</h1>`)
+);
 
 userRoutes.post("/", async (request, response) => {
   const { name, email, password } = request.body;
