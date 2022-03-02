@@ -23,65 +23,81 @@ productRoutes.post("/", async (request, response) => {
 });
 
 productRoutes.get("/", async (request, response) => {
-  const productRepository = new ProductRepository();
-  const all = await productRepository.read();
-  return response.json(all);
+  try {
+    const productRepository = new ProductRepository();
+    const all = await productRepository.read();
+    return response.json(all);
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
 });
 
 productRoutes.get("/:id", async (request, response) => {
-  const { id } = request.params;
-  const productRepository = new ProductRepository();
-  const product = await productRepository.findById(+id);
+  try {
+    const { id } = request.params;
+    const productRepository = new ProductRepository();
+    const product = await productRepository.findById(+id);
 
-  const isIdOnDatabase = product ? product : null;
+    const isIdOnDatabase = product ? product : null;
 
-  if (!isIdOnDatabase) {
-    return response.status(404).json({ error: "Product ID doesn't exist" });
+    if (!isIdOnDatabase) {
+      return response.status(404).json({ error: "Product ID doesn't exist" });
+    }
+
+    return response.status(200).json(product);
+  } catch (error) {
+    console.log(`Error: ${error}`);
   }
-
-  return response.status(200).json(product);
 });
 
 productRoutes.put("/:id", async (request, response) => {
-  const { name, category, price } = request.body;
-  const { id } = request.params;
+  try {
+    const { name, category, price } = request.body;
+    const { id } = request.params;
 
-  const productRepository = new ProductRepository();
-  const product = await productRepository.findById(+id);
+    const productRepository = new ProductRepository();
+    const product = await productRepository.findById(+id);
 
-  const isIdOnDatabase = product ? product : null;
+    const isIdOnDatabase = product ? product : null;
 
-  if (!isIdOnDatabase) {
-    return response.status(404).json({ error: "Product ID doesn't exist" });
+    if (!isIdOnDatabase) {
+      return response.status(404).json({ error: "Product ID doesn't exist" });
+    }
+
+    const updatedProduct = {
+      id: +id,
+      name: name ? name : product.name,
+      category: category ? category : product.category,
+      price: price ? price : product.price,
+    };
+
+    productRepository.update(updatedProduct);
+
+    return response.status(200).send();
+  } catch (error) {
+    console.log(`Error: ${error}`);
   }
-
-  const updatedProduct = {
-    id: +id,
-    name: name ? name : product.name,
-    category: category ? category : product.category,
-    price: price ? price : product.price,
-  };
-
-  productRepository.update(updatedProduct);
-
-  return response.status(200).send();
 });
 
 productRoutes.delete("/:id", async (request, response) => {
-  const { id } = request.params;
+  try {
+    const { id } = request.params;
 
-  const productRepository = new ProductRepository();
-  const product = await productRepository.findById(+id);
+    const productRepository = new ProductRepository();
+    const product = await productRepository.findById(+id);
 
-  const isIdOnDatabase = product ? product : null;
+    const isIdOnDatabase = product ? product : null;
 
-  if (!isIdOnDatabase) {
-    return response.status(404).json({ error: "Product ID doesn't exist" });
+    if (!isIdOnDatabase) {
+      return response.status(404).json({ error: "Product ID doesn't exist" });
+    }
+
+    await productRepository.delete(+id);
+
+    return response.status(204).send();
+  } catch (error) {
+    console.log(`Error: ${error}`);
   }
-
-  await productRepository.delete(+id);
-
-  return response.status(204).send();
 });
 
 export { productRoutes };
